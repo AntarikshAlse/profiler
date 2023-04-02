@@ -6,7 +6,6 @@ require("./lib/connectMongo");
 const session = require("express-session");
 const mongoDbSession = require("connect-mongodb-session")(session);
 const { isAuth } = require("./Middlewares/AuthMiddleware");
-const ObjectId = require("mongodb").ObjectId;
 const PORT = process.env.PORT || 5000;
 
 // middlewares
