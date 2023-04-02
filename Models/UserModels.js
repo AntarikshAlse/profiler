@@ -1,7 +1,6 @@
 const UserSchema = require("../Schemas/UserSchema");
 const bcrypt = require("bcrypt");
 const { sendMail, generateToken } = require("../utils/AuthUtils");
-const ObjectId = require("mongodb").ObjectId;
 const jwt = require("jsonwebtoken");
 let User = class {
   constructor({ name, username, email, password, phone }) {
