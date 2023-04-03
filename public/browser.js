@@ -94,3 +94,27 @@ function resend(event) {
       alert(error.response.data.error);
     });
 }
+
+function forgetpass() {
+  let email = document.getElementById("loginId").value;
+  if (email === "") {
+    alert("Email is required");
+    return;
+  }
+  console.log(email);
+  //post request axios
+  axios
+    .post("/reset-pass", {
+      email: email,
+    })
+    .then((response) => {
+      if (response.data) {
+        alert(response.data.message);
+      } else {
+        alert(response.data.error);
+      }
+    })
+    .catch((error) => {
+      alert(error.response.data.error);
+    });
+}

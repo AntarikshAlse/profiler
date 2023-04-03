@@ -67,6 +67,15 @@ UserRouter.get("/verify/:token", async (req, res) => {
   }
 });
 // reset Password
+UserRouter.post("/reset-pass", async (req, res) => {
+  let email = req.body.email;
+  try {
+    const isSent = await User.resetPassMail(email);
+    res.status(200).json({ data: isSent, message: "Mail sent successfully" });
+  } catch (error) {
+    res.status(400).json({ error: error.message, message: "Database error" });
+  }
+});
 UserRouter.get("/reset/:token", async (req, res) => {
   const token = req.params.token;
   try {

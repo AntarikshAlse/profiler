@@ -1,6 +1,6 @@
 const UserSchema = require("../Schemas/UserSchema");
 const bcrypt = require("bcrypt");
-const { sendMail, generateToken } = require("../utils/AuthUtils");
+const { sendMail, generateToken, forgetPass } = require("../utils/AuthUtils");
 const jwt = require("jsonwebtoken");
 let User = class {
   constructor({ name, username, email, password, phone }) {
@@ -104,10 +104,7 @@ let User = class {
           return reject(err);
         }
         try {
-          const userDb = await UserSchema.findOne(
-            { email: decodedData.email },
-            { resetPass: true }
-          );
+          const userDb = await UserSchema.findOne({ email: decodedData.email });
           resolve(userDb); // redirect page
         } catch (error) {
           reject("Invalid Authentication Link");
@@ -145,6 +142,22 @@ let User = class {
         if (user) {
           let verificationToken = generateToken(this.email);
           sendMail(email, verificationToken);
+          resolve("Mail sent successfully");
+        } else {
+          throw Error("User not found");
+        }
+      } catch (error) {
+        reject(error);
+      }
+    });
+  }
+  static resetPassMail(email) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const user = await this.userExists(email);
+        if (user) {
+          let verificationToken = generateToken(this.email);
+          forgetPass(email, verificationToken);
           resolve("Mail sent successfully");
         } else {
           throw Error("User not found");
