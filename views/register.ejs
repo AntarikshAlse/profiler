@@ -23,6 +23,8 @@
         border: 3px solid #f1f1f1;
       }
       input[type="text"],
+      input[type="email"],
+      input[type="number"],
       input[type="password"] {
         width: 100%;
         margin: 8px 0;
@@ -48,26 +50,40 @@
   </head>
   <body>
     <center><h1>Register Form</h1></center>
-    <form action="/registration" method="POST">
+    <form onsubmit="register(event)">
       <div class="container">
         <label for="name">Name : </label>
-        <input type="text" placeholder="Enter Name" name="name" required />
-        <label for="phone">Phone : </label>
         <input
           type="text"
+          placeholder="Enter Name"
+          name="name"
+          id="name"
+          required
+        />
+        <label for="phone">Phone : </label>
+        <input
+          type="number"
           minlength="10"
           maxlength="10"
           placeholder="Enter Phone"
           name="phone"
+          id="phone"
           required
         />
         <label for="email">Email : </label>
-        <input type="text" placeholder="Enter Email" name="email" required />
+        <input
+          type="email"
+          placeholder="Enter Email"
+          name="email"
+          id="email"
+          required
+        />
         <label for="username">Username : </label>
         <input
           type="text"
           placeholder="Enter Username"
           name="username"
+          id="username"
           required
         />
         <label for="password">Password : </label>
@@ -75,10 +91,16 @@
           type="password"
           placeholder="Enter Password"
           name="password"
+          id="password"
           required
         />
         <button type="submit">Register</button>
+        <button type="button" onclick="resend()">
+          Resend Verfification link
+        </button>
       </div>
     </form>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/browser.js"></script>
   </body>
 </html>

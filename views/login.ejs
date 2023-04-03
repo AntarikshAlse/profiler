@@ -48,13 +48,14 @@
   </head>
   <body>
     <center><h1>Login Form</h1></center>
-    <form action="/login" method="POST">
+    <form action="/login" onsubmit="login(event)">
       <div class="container">
         <label for="loginId">Email or Username : </label>
         <input
           type="text"
           placeholder="Enter Email or Username"
           name="loginId"
+          id="loginId"
           required
         />
         <label for="password">Password : </label>
@@ -62,12 +63,14 @@
           type="password"
           placeholder="Enter Password"
           name="password"
+          id="password"
           required
         />
         <button type="submit">Login</button>
         <button type="button" id="resetPassword">Forget Password</button>
       </div>
     </form>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="/browser.js"></script>
   </body>
 </html>

@@ -28,7 +28,7 @@ UserRouter.post("/registration", async (req, res) => {
 UserRouter.post("/login", async (req, res) => {
   const { loginId, password } = req.body;
   if (!loginId || !password) {
-    res.status(400).json({
+    res.status(200).json({
       error: "Please provide email and password",
       message: "Missing Credentials",
     });
