@@ -59,6 +59,8 @@ UserRouter.get("/verify/:token", async (req, res) => {
     const verifiedUser = await User.verifyUser(token);
     if (verifiedUser) {
       res.status(200).redirect("/login");
+    } else {
+      res.status(200).json({ verifiedUser });
     }
   } catch (error) {
     res.status(400).json({ error: error.message, message: "Database error" });

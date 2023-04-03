@@ -26,13 +26,13 @@ let User = class {
         phone: this.phone,
       });
       let isUser;
+      let verificationToken = generateToken(this.email);
       try {
         isUser = await UserSchema.findOne({ email: this.email });
         if (isUser) {
           throw Error("User already exists");
         }
         if (!isUser) {
-          let verificationToken = generateToken(this.email);
           try {
             const result = await newUser.save();
             sendMail(this.email, verificationToken);
@@ -85,6 +85,10 @@ let User = class {
           const userDb = await UserSchema.findOneAndUpdate(
             { email: decodedData.email },
             { emailAuthenticated: true }
+          );
+          console.log(
+            "🚀 ~ file: UserModels.js:89 ~ jwt.verify ~ userDb:",
+            userDb
           );
           resolve(userDb); // redirect page
         } catch (error) {

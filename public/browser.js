@@ -1,4 +1,3 @@
-const { validateData } = require("../utils/AuthUtils");
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("show_more")) {
     //fetchBooks();
@@ -22,7 +21,7 @@ function login(event) {
     })
     .then((response) => {
       console.log(response.data);
-      if (response.data.status === "success") {
+      if (response.data) {
         window.location.href = "/dashboard";
       } else {
         alert("Invalid Credentials");
@@ -58,7 +57,8 @@ function register(event) {
     })
     .then((response) => {
       if (response.data) {
-        window.location.href = "/dashboard";
+        alert(response.data + " Verify your email");
+        window.location.href = "/login";
         console.log(response.message);
       } else {
         alert("Invalid Credentials");
