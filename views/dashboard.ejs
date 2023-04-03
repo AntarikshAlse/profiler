@@ -13,19 +13,23 @@
         <div class="jumbotron p-3 shadow-sm">
           <form id="create_form">
             <div class="d-flex align-items-center">
-              <input id="create_field" name='todo' autofocus autocomplete="off" class="form-control mr-3" type="text" style="flex: 1;">
-              <button class="add_item btn btn-primary">Add Book</button>
+              <!-- input fields with title, author, category ,price -->
+              <div class="input-group mb-3">
+                <form >
+                  <input type="text" class="form-control" placeholder="Title" id="title" required>
+                  <input type="text" class="form-control" placeholder="Author" id="author" required>
+                  <input type="text" class="form-control" placeholder="Author" id="category" required>
+                  <input type="number" class="form-control" placeholder="Price" id="price" required>
+                  <button class="add_item btn btn-primary" type="button" onclick="createBook()">Add Book</button>
+                </form>
+              </div>
             </div>
           </form>
         </div>
         
-        <ul id="item_list" class=""list-group pb-5>
+        <ul id="item_list" class="list-group pb-5 list-unstyled w-25" >
         
         </ul>
-
-        <button class="show_more">
-          Show More
-        </button>
         <br/>
         <br/>
 

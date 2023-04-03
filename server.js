@@ -6,6 +6,7 @@ require("./lib/connectMongo");
 const session = require("express-session");
 const mongoDbSession = require("connect-mongodb-session")(session);
 const { isAuth } = require("./Middlewares/AuthMiddleware");
+const BookRouter = require("./Controllers/BookController");
 const PORT = process.env.PORT || 5000;
 
 // middlewares
@@ -26,6 +27,7 @@ app.use(
   })
 );
 app.use(UserRouter);
+app.use(BookRouter);
 app.get("/", (req, res) => {
   res.redirect("/registration");
 });

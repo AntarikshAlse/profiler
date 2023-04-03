@@ -1,12 +1,8 @@
 document.addEventListener("click", function (event) {
   if (event.target.classList.contains("show_more")) {
-    //fetchBooks();
+    fetchBooks();
   }
 });
-
-window.onload = function () {
-  //fetchBooks()
-};
 
 //login
 function login(event) {
@@ -117,4 +113,66 @@ function forgetpass() {
     .catch((error) => {
       alert(error.response.data.error);
     });
+}
+
+function createBook(event) {
+  event.preventDefault();
+  let title = document.getElementById("title").value;
+  let author = document.getElementById("author").value;
+  let price = document.getElementById("price").value;
+  let category = document.getElementById("category").value;
+  if (!title || !author || !price || !category) {
+    alert("All fields are required");
+    return;
+  }
+  //post request axios
+  axios
+    .post("/create-book", {
+      title: title,
+      author: author,
+      price: price,
+      category: category,
+    })
+    .then((response) => {
+      if (response.data) {
+        alert(response.data);
+      } else {
+        alert(response.data.error);
+      }
+    })
+    .catch((error) => {
+      alert(error.response.data.error);
+    });
+}
+window.onload = function () {
+  fetchBooks();
+};
+
+function fetchBooks() {
+  axios.get("/books").then((response) => {
+    console.log(response.data);
+    if (response.data) {
+      let books = response.data.data;
+      let html = "";
+      books.forEach((book) => {
+        html += `
+          <li>
+          <div class="card">
+          <div class="card-body">
+            <h3>Title - ${book.title}</h3>
+          
+            <p>Author : ${book.author}</p>
+            <p>Price : ${book.price}</p>
+            <p>Category : ${book.category}</p>
+            <button>
+              <a href="#" class="btn btn-danger btn-sm" onclick="deleteBook(${book._id})">Delete</a>
+            </button>
+            </div>
+            </div>
+          </li>
+          `;
+      });
+      document.getElementById("item_list").innerHTML = html;
+    }
+  });
 }
