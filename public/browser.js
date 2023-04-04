@@ -115,8 +115,7 @@ function forgetpass() {
     });
 }
 
-function createBook(event) {
-  event.preventDefault();
+function createBook() {
   let title = document.getElementById("title").value;
   let author = document.getElementById("author").value;
   let price = document.getElementById("price").value;
@@ -127,7 +126,7 @@ function createBook(event) {
   }
   //post request axios
   axios
-    .post("/create-book", {
+    .post("/book", {
       title: title,
       author: author,
       price: price,
@@ -135,7 +134,8 @@ function createBook(event) {
     })
     .then((response) => {
       if (response.data) {
-        alert(response.data);
+        alert(response.data.message);
+        fetchBooks();
       } else {
         alert(response.data.error);
       }
@@ -156,8 +156,7 @@ function fetchBooks() {
       let html = "";
       books.forEach((book) => {
         html += `
-          <li>
-          <div class="card">
+          <div class="card w-25">
           <div class="card-body">
             <h3>Title - ${book.title}</h3>
           
@@ -169,7 +168,6 @@ function fetchBooks() {
             </button>
             </div>
             </div>
-          </li>
           `;
       });
       document.getElementById("item_list").innerHTML = html;
