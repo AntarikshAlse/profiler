@@ -13,7 +13,7 @@ BookRouter.get("/books", async (req, res) => {
 });
 // create a new book
 
-BookRouter.post("/book", async (req, res) => {
+BookRouter.post("/book", isAuth, async (req, res) => {
   let book = new Book({
     title: req.body.title,
     author: req.body.author,

@@ -105,6 +105,11 @@ let User = class {
         }
         try {
           const userDb = await UserSchema.findOne({ email: decodedData.email });
+          console.log(
+            "🚀 ~ file: UserModels.js:108 ~ jwt.verify ~ userDb:",
+            userDb
+          );
+
           resolve(userDb); // redirect page
         } catch (error) {
           reject("Invalid Authentication Link");
@@ -119,6 +124,10 @@ let User = class {
         const userDb = await UserSchema.findOneAndUpdate(
           { email: loginId },
           { password: hashedPass }
+        );
+        console.log(
+          "🚀 ~ file: UserModels.js:128 ~ returnnewPromise ~ userDb:",
+          userDb
         );
         resolve(userDb); // redirect page
       } catch (error) {
@@ -156,7 +165,13 @@ let User = class {
       try {
         const user = await this.userExists(email);
         if (user) {
-          let verificationToken = generateToken(this.email);
+          let verificationToken = generateToken(email);
+          console.log(
+            "🚀 ~ file: UserModels.js:165 ~ returnnewPromise ~ verificationToken:",
+            email,
+            verificationToken
+          );
+
           forgetPass(email, verificationToken);
           resolve("Mail sent successfully");
         } else {

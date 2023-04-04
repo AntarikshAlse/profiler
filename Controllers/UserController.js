@@ -80,8 +80,9 @@ UserRouter.get("/reset/:token", async (req, res) => {
   const token = req.params.token;
   try {
     const verifiedUser = await User.resetPass(token);
+
     if (verifiedUser) {
-      res.render("forgetPass");
+      res.render("forgetPass", { email: verifiedUser.email });
     }
   } catch (error) {
     res.status(400).json({ error: error.message, message: "Database error" });
@@ -94,6 +95,10 @@ UserRouter.post("/forget-pass", async (req, res) => {
       loginId: req.body.loginId,
       password: req.body.password,
     });
+    console.log(
+      "🚀 ~ file: UserController.js:98 ~ UserRouter.post ~ verifiedUser:",
+      verifiedUser
+    );
     if (verifiedUser) {
       res.redirect("/login");
     }
